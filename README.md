@@ -1,4 +1,4 @@
-# C-Notes
+# C++ Notes
 C++ Notes
 
 ### Memeory leaking
