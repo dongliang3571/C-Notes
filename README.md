@@ -31,3 +31,40 @@ void func(SomeClass obj) {
 
 // But this is not recommanded
 ```
+
+### `std::map`
+
+In general
+
+```c++
+map<string, int>::iterator it;
+
+for (it = symbolTable.begin(); it != symbolTable.end(); it++) {
+    std::cout << it->first  // string (key)
+              << ':'
+              << it->second   // string's value 
+              << std::endl ;
+}
+```
+
+with C++11
+
+```c++
+for (auto const& x : symbolTable) {
+    std::cout << x.first  // string (key)
+              << ':' 
+              << x.second // string's value 
+              << std::endl ;
+}
+```
+
+with C++17
+
+```c++
+for(auto const& [key, val] : symbolTable) {
+    std::cout << key         // string (key)
+              << ':'  
+              << val        // string's value
+              << std::endl ;
+}
+```
