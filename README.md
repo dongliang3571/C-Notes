@@ -1,6 +1,49 @@
 # C++ Notes
 C++ Notes
 
+### Some combination and permuation formulas
+
+[resource](https://www.mathsisfun.com/combinatorics/combinations-permutations.html)
+
+`0!` is define as `1`
+
+**Permutation**
+
+with repetition:
+
+```
+n^r
+```
+
+where n is the number of things to choose from, and we choose r of them
+
+without repetition
+
+```
+n! / (n-r)!  
+```
+
+where n is the number of things to choose from, and we choose r of them
+
+**Combination**
+
+with repetition:
+
+```
+(r+n-1)! / r!(n-1)!
+```
+
+where n is the number of things to choose from, and we choose r of them
+
+without repetition
+
+```
+n! / (n-r)!r!  
+```
+
+where n is the number of things to choose from, and we choose r of them
+
+
 ### Memeory leaking
 
 Objects allocated with `new` operator must eventually be freed with `delete` operator, or there will be leaks. Even the `new` takes place in function's actual arguments. That is,
