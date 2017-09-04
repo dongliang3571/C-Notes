@@ -34,6 +34,8 @@ void func(SomeClass obj) {
 
 ### `std::map`
 
+**Iteration**
+
 In general
 
 ```c++
@@ -66,5 +68,62 @@ for(auto const& [key, val] : symbolTable) {
               << ':'  
               << val        // string's value
               << std::endl ;
+}
+```
+
+### Range based loop
+
+```c++
+// This is a typical range based loop
+vector<int> v(5, 1);
+for (int i : v) {
+    cout << i << ' ';
+}
+
+// output: 1 1 1 1 1
+```
+
+In range based loop we can decide the way of getting each element from sequences. That is, copy of a element, or an original element.
+
+```c++
+vector<int> v(5, 1);
+
+// i here is a copy of elements in v
+for (int i : v) {
+    i = 4;
+}
+
+for (int i : v) {
+    cout << i << ' ';
+}
+
+// output will still be: 1 1 1 1 1
+```
+
+```c++
+vector<int> v(5, 1);
+
+// i here is the original elements in v
+for (int &i : v) {
+    i = 4;
+}
+
+for (int i : v) {
+    cout << i << ' ';
+}
+
+// output will be: 4 4 4 4 4, because the original argument was updated in last loop.
+```
+
+```c++
+// Don't want copy but dont want to modify the original, we can use combination of const and &
+// This way original element is used but not allow to be modified
+for (int const& i : v) {
+    i = 4; // error!
+}
+
+// const can be before data type, it's the same
+for (const int& i : v) {
+    i = 4; // error!
 }
 ```
