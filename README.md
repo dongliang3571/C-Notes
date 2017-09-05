@@ -5,6 +5,8 @@ C++ Notes
 
 [resource](https://www.mathsisfun.com/combinatorics/combinations-permutations.html)
 
+[special combination case](http://mathforum.org/library/drmath/view/56197.html)
+
 `0!` is define as `1`
 
 **Permutation**
