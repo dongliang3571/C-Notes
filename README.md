@@ -77,7 +77,7 @@ void func(SomeClass obj) {
 // But this is not recommanded
 ```
 
-### `std::map`
+### `std::map`, `#include <map>`
 
 **Iteration**
 
@@ -114,6 +114,30 @@ for(auto const& [key, val] : symbolTable) {
               << val        // string's value
               << std::endl ;
 }
+```
+
+### `std::bitset`, `#include <bitset>`
+
+A bitset stores bits (elements with only two possible values: 0 or 1, true or false, ...).
+
+```c++
+// bitset::count
+#include <iostream>       // std::cout
+#include <string>         // std::string
+#include <bitset>         // std::bitset
+
+int main ()
+{
+  std::bitset<8> foo (std::string("10110011"));
+
+  std::cout << foo << " has ";
+  std::cout << foo.count() << " ones and ";
+  std::cout << (foo.size()-foo.count()) << " zeros.\n";
+
+  return 0;
+}
+
+// output: 10110011 has 5 ones and 3 zeros.
 ```
 
 ### Range based loop
