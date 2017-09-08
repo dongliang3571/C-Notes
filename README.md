@@ -77,6 +77,32 @@ void func(SomeClass obj) {
 // But this is not recommanded
 ```
 
+**NOTICE: ** `delete` does not set point to `NULL` or `nullptr`. 
+
+[resource1](https://stackoverflow.com/questions/704466/why-doesnt-delete-set-the-pointer-to-null)
+
+[resource2](http://www.stroustrup.com/bs_faq2.html#delete-zero)
+
+Consider following case
+
+```c++
+struct ListNode {
+     int val;
+     ListNode *next;
+     ListNode(int x) : val(x), next(NULL) {}
+};
+
+ListNode* root = new ListNode(2);
+
+delete root;
+
+if (root == nullptr) std::cout << "empty" << '\n';
+else std::cout << "NOT empty" << '\n';
+
+// output is "NOT empty"
+// because pointer still has value, but the object that pointer points to has been deleted
+```
+
 ### `std::map`, `#include <map>`
 
 **Iteration**
