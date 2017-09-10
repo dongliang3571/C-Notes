@@ -222,3 +222,23 @@ for (const int& i : v) {
     i = 4; // error!
 }
 ```
+
+### Declaration and initialization
+
+`vector<int> V[]` vs. `vector< vector<int> > V`
+
+`vector<int> V[]` is an array of vectors.
+
+`vector<vector<int>> V` is a vector of vectors.
+
+Using arrays are **C-style** coding, using vectors are **C++-style** coding.
+
+Quoting cplusplus.com ,
+
+Vectors are sequence containers representing arrays that can change in size.
+
+Just like arrays, vectors use contiguous storage locations for their elements, which means that their elements can also be accessed using offsets on regular pointers to its elements, and just as efficiently as in arrays. But unlike arrays, their size can change dynamically, with their storage being handled automatically by the container.
+
+When you want to work with a fixed number of std::vector elements, you can use vector <int> V[].
+
+When you want to work with a dynamic array of std::vector, you can use  vector< vector<int> > V.
