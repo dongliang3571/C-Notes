@@ -166,6 +166,36 @@ int main ()
 // output: 10110011 has 5 ones and 3 zeros.
 ```
 
+### `istringstream`, `ostringstream`, `stringstring`, `#include <sstring>`
+
+```c++
+string str = "word hello";
+
+istringstream iss(str);
+
+str tmp;
+
+while (iss >> tmp) { 
+    cout << tmp << '\n'\
+}
+
+// output will be:
+//  word
+//  hello
+```
+
+**Note** that this syntax `iss >> tmp`, refer to http://www.cs.technion.ac.il/users/yechiel/c++-faq/istream-and-while.html
+
+```c++
+
+ostringstream oss;
+
+oss << "word" << "hello";
+
+cout << oss.str();
+// output will be: wordhello
+```
+
 ### Range based loop
 
 ```c++
