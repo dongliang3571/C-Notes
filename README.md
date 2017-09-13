@@ -45,6 +45,47 @@ n! / (n-r)!r!
 
 where n is the number of things to choose from, and we choose r of them
 
+### lvalues and rvalues
+
+Every C++ expression is either an lvalue or an rvalue. An lvalue refers to an object that persists beyond a single expression. You can think of an lvalue as an object that has a name. All variables, including nonmodifiable (const) variables, are lvalues. An rvalue is a temporary value that does not persist beyond the expression that uses it. To better understand the difference between lvalues and rvalues, consider the following example
+
+```c++
+#include <iostream>  
+using namespace std;  
+int main()  
+{  
+   int x = 3 + 4;  
+   cout << x << endl;  
+}  
+```
+
+In this example, `x` is an lvalue because it persists beyond the expression that defines it. The expression `3 + 4` is an rvalue because it evaluates to a temporary value that does not persist beyond the expression that defines it.
+
+The following example demonstrates several correct and incorrect usages of lvalues and rvalues:
+
+```c++
+int main()  
+{  
+   int i, j, *p;  
+  
+   // Correct usage: the variable i is an lvalue.  
+   i = 7;  
+  
+   // Incorrect usage: The left operand must be an lvalue (C2106).  
+   7 = i; // C2106  
+   j * 4 = 7; // C2106  
+  
+   // Correct usage: the dereferenced pointer is an lvalue.  
+   *p = i;   
+  
+   const int ci = 7;  
+   // Incorrect usage: the variable is a non-modifiable lvalue (C3892).  
+   ci = 9; // C3892  
+  
+   // Correct usage: the conditional operator returns an lvalue.  
+   ((i < 3) ? i : j) = 7;  
+}  
+```
 
 ### Memeory leaking
 
