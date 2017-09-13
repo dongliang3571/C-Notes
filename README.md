@@ -377,6 +377,44 @@ k = GetMax (i,l);
 
 we cannot call our function template with two objects of different types as arguments.
 
+### `std::priority_queue`
+
+The template parameter should be the type of the comparison function. The function is then either default-constructed or you pass a function in the constructor of priority_queue. So try either
+
+```c++
+std::priority_queue<int, std::vector<int>, decltype(&compare)> pq(&compare);
+```
+
+or don't use function pointers but instead a functor from the standard library which then can be default-constructed, eliminating the need of passing an instance in the constructor:
+
+```c++
+std::priority_queue<int, std::vector<int>, std::less<int> > pq;
+```
+
+If your comparison function can't be expressed using standard library functors (in case you use custom classes in the priority queue), I recommend writing a custom functor class, or use a lambda.
+
+**lambda **
+
+First define the lambda:
+
+```c++
+auto compareFunc = [](int a, int b) { return a > b; };
+```
+
+Then use decltype:
+
+```c++
+typedef priority_queue<int, vector<int>, decltype(compareFunc)> q2;
+```
+
+Now when you use `q2`, pass in the function:
+
+```c++
+q2 myQueue(compareFunc);
+```
+
+Basically, priority_queue takes the type of a function as it's 3rd template argument, while the constructor takes a pointer to that function itself.
+
 ### `decltype`
 
 Inspects the declared type of an entity or the type and value category of an expression
