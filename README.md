@@ -376,3 +376,48 @@ k = GetMax (i,l);
 ```
 
 we cannot call our function template with two objects of different types as arguments.
+
+### `decltype`
+
+Inspects the declared type of an entity or the type and value category of an expression
+
+```c++
+#include <iostream>
+ 
+struct A { double x; };
+const A* a = new A{0};
+ 
+decltype(a->x) y;       // type of y is double (declared type)
+decltype((a->x)) z = y; // type of z is const double& (lvalue expression)
+ 
+template<typename T, typename U>
+auto add(T t, U u) -> decltype(t + u) // return type depends on template parameters
+{
+    return t+u;
+}
+ 
+int main() 
+{
+    int i = 33;
+    decltype(i) j = i * 2;
+ 
+    std::cout << "i = " << i << ", "
+              << "j = " << j << '\n';
+ 
+    auto f = [](int a, int b) -> int
+    {
+        return a * b;
+    };
+ 
+    decltype(f) g = f; // the type of a lambda function is unique and unnamed
+    i = f(2, 2);
+    j = g(3, 3);
+ 
+    std::cout << "i = " << i << ", "
+              << "j = " << j << '\n';
+}
+
+//output:
+//    i = 33, j = 66
+//    i = 4, j = 9
+```
