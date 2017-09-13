@@ -47,6 +47,10 @@ where n is the number of things to choose from, and we choose r of them
 
 ### lvalues and rvalues
 
+https://msdn.microsoft.com/en-us/library/f90831hc.aspx -- old
+
+https://docs.microsoft.com/en-us/cpp/cpp/lvalues-and-rvalues-visual-cpp -- new
+
 Every C++ expression is either an lvalue or an rvalue. An lvalue refers to an object that persists beyond a single expression. You can think of an lvalue as an object that has a name. All variables, including nonmodifiable (const) variables, are lvalues. An rvalue is a temporary value that does not persist beyond the expression that uses it. To better understand the difference between lvalues and rvalues, consider the following example
 
 ```c++
