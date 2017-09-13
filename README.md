@@ -421,3 +421,55 @@ int main()
 //    i = 33, j = 66
 //    i = 4, j = 9
 ```
+
+### Initialization
+
+Suppose I have a class with private memebers ptr, name, pname, rname, crname and age. What happens if I don't initialize them myself? Here is an example:
+
+```c++
+class Example {
+    private:
+        int *ptr;
+        string name;
+        string *pname;
+        string &rname;
+        const string &crname;
+        int age;
+
+    public:
+        Example() {}
+};
+```
+
+And then do
+
+```c++
+int main() {
+    Example ex;
+}
+```
+
+**Question:** 
+
+How are the members initialized in ex? What happens with pointers? Do string and int get 0-intialized with default constructors string() and int()? What about the reference member? Also what about const references?
+
+**Answer:**
+
+In lieu of explicit initialization, initialization of members in classes works identically to initialization of local variables in functions.
+
+For objects, their default constructor is called. For example, for std::string, the default constructor sets it to an empty string. If the object's class does not have a default constructor, it will be a compile error if you do not explicitly initialize it.
+
+For primitive types (pointers, ints, etc), they are not initialized -- they contain whatever arbitrary junk happened to be at that memory location previously.
+
+For references (e.g. std::string&), it is illegal not to initialize them, and your compiler will complain and refuse to compile such code. References must always be initialized.
+
+So, in your specific case, if they are not explicitly initialized:
+
+```c++
+int *ptr;  // Contains junk
+string name;  // Empty string
+string *pname;  // Contains junk
+string &rname;  // Compile error
+const string &crname;  // Compile error
+int age;  // Contains junk
+```
