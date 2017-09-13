@@ -91,6 +91,67 @@ int main()
 }  
 ```
 
+### Pointer vs Reference
+
+**Pointers:** A pointer is a variable that holds memory address of another variable. A pointer needs to be dereferenced with * operator to access the memory location it points to.
+
+```c++
+int x = 1;
+int *p = &x; // assign x's address to pointer p
+```
+
+**References:** A reference variable is an alias, that is, another name for an already existing variable. A reference, like a pointer, is also implemented by storing the address of an object.
+
+```c++
+int x = 1;
+int &r = x; // r point to whatever is in the address that x locates
+int c = x; // simply copy the value of x to c, c has its own address
+
+cout << r; // the value of x
+cout << x; // the value of x
+cout << &r; // the address of x
+cout << &x; // the address of x
+cout << &c; // the address of c
+```
+
+A reference can be thought of as a constant pointer (not to be confused with a pointer to a constant value!) with automatic indirection, i.e the compiler will apply the * operator for you.
+
+```c++
+int i = 3; 
+
+// A pointer to variable i (or stores
+// address of i)
+int *ptr = &i; 
+
+// A reference (or alias) for i.
+int &ref = i; 
+```
+
+1. **Reassignment:** A pointer can be re-assigned. This property is useful for implementation of data structures like linked list, tree, etc. See the following examples:
+
+```c++
+int x = 5;
+int y = 6;
+int *p;
+p =  &x;
+p = &y;
+
+cout << *p
+```
+On the other hand, a reference cannot be re-assigned, and must be assigned at initialization.
+
+2. **Memory Address:** A pointer has its **own memory address** and size on the stack whereas a reference shares the same memory address (with the original variable) but also takes up some space on the stack. References may be passed to functions, stored in classes, etc. in a manner very similar to pointers.  Pointer is an independent variable and can be assigned NEW address values; whereas a reference, once assigned, can never refer to any new object until the variable goes out of scope.
+
+```c++
+int x = 5;
+int *r = &x;
+
+cout << &r; // address of the pointer
+cout << &x; // address of the x
+cout << *r; // the value of x
+cout << &(*r); // address of the x
+```
+
 ### Memeory leaking
 
 Objects allocated with `new` operator must eventually be freed with `delete` operator, or there will be leaks. Even the `new` takes place in function's actual arguments. That is,
