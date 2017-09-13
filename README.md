@@ -166,6 +166,145 @@ int main ()
 // output: 10110011 has 5 ones and 3 zeros.
 ```
 
+### `multiset`, `#include <set>`
+
+```c++
+template < class T,                        // multiset::key_type/value_type
+           class Compare = less<T>,        // multiset::key_compare/value_compare
+           class Alloc = allocator<T> >    // multiset::allocator_type
+           > class multiset;
+```
+
+Multisets are containers that store elements following a specific order, and where multiple elements can have equivalent values.
+
+In a multiset, the value of an element also identifies it (the value is itself the key, of type T). The value of the elements in a multiset cannot be modified once in the container (the elements are always const), but they can be inserted or removed from the container.
+
+```c++
+#include <iostream>
+#include <set>
+
+int main ()
+{
+  std::multiset<int> mymultiset;
+  std::multiset<int>::iterator it;
+
+  // set some initial values:
+  for (int i=1; i<=5; i++) mymultiset.insert(i*10);  // 10 20 30 40 50
+
+  it=mymultiset.insert(25);
+
+  it=mymultiset.insert (it,27);    // max efficiency inserting
+  it=mymultiset.insert (it,29);    // max efficiency inserting
+  it=mymultiset.insert (it,24);    // no max efficiency inserting (24<29)
+
+  int myints[]= {5,10,15};
+  mymultiset.insert (myints,myints+3);
+
+  std::cout << "mymultiset contains:";
+  for (it=mymultiset.begin(); it!=mymultiset.end(); ++it)
+    std::cout << ' ' << *it;
+  std::cout << '\n';
+
+  return 0;
+}
+//output: myset contains: 5 10 10 15 20 24 25 27 29 30 40 50
+```
+
+### `std::for_each`, `#include <algorithm>`
+
+```c++
+template <class InputIterator, class Function>
+   Function for_each (InputIterator first, InputIterator last, Function fn)
+```
+
+Applies function fn to each of the elements in the range [first,last).
+
+The behavior of this template function is equivalent to:
+
+```c++
+template<class InputIterator, class Function>
+  Function for_each(InputIterator first, InputIterator last, Function fn)
+{
+  while (first!=last) {
+    fn (*first);
+    ++first;
+  }
+  return fn;      // or, since C++11: return move(fn);
+}
+```
+
+Example:
+
+```c++
+// for_each example
+#include <iostream>     // std::cout
+#include <algorithm>    // std::for_each
+#include <vector>       // std::vector
+
+void myfunction (int i) {  // function:
+  std::cout << ' ' << i;
+}
+
+struct myclass {           // function object type:
+  void operator() (int i) {std::cout << ' ' << i;}
+} myobject;
+
+int main () {
+  std::vector<int> myvector;
+  myvector.push_back(10);
+  myvector.push_back(20);
+  myvector.push_back(30);
+
+  std::cout << "myvector contains:";
+  for_each (myvector.begin(), myvector.end(), myfunction);
+  std::cout << '\n';
+
+  // or:
+  std::cout << "myvector contains:";
+  for_each (myvector.begin(), myvector.end(), myobject);
+  std::cout << '\n';
+
+  return 0;
+}
+// output:
+// myvector contains: 10 20 30
+// myvector contains: 10 20 30
+```
+
+### `std::next`, `#include <iterator>`
+
+```c++
+template <class ForwardIterator>
+  ForwardIterator next (ForwardIterator it,
+       typename iterator_traits<ForwardIterator>::difference_type n = 1);
+```
+
+Returns an iterator pointing to the element that it would be pointing to if advanced n positions.
+
+it is not modified.
+
+```c++
+// next example
+#include <iostream>     // std::cout
+#include <iterator>     // std::next
+#include <list>         // std::list
+#include <algorithm>    // std::for_each
+
+int main () {
+  std::list<int> mylist;
+  for (int i=0; i<10; i++) mylist.push_back (i*10);
+
+  std::cout << "mylist:";
+  std::for_each (mylist.begin(),
+                 std::next(mylist.begin(),5),
+                 [](int x) {std::cout << ' ' << x;} );
+
+  std::cout << '\n';
+
+  return 0;
+}
+```
+
 ### `istringstream`, `ostringstream`, `stringstring`, `#include <sstring>`
 
 ```c++
