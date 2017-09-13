@@ -272,3 +272,107 @@ Just like arrays, vectors use contiguous storage locations for their elements, w
 When you want to work with a fixed number of std::vector elements, you can use vector <int> V[].
 
 When you want to work with a dynamic array of std::vector, you can use  vector< vector<int> > V.
+
+### Templates
+
+**Function templates**
+
+Function templates are special functions that can operate with generic types. This allows us to create a function template whose functionality can be adapted to more than one type or class without repeating the entire code for each type.
+
+For example, to create a template function that returns the greater one of two objects we could use: 
+
+```c++
+template<class myType>
+myType GetMax(myType a, myType b) {
+   return (a>b?a:b);
+}
+```
+
+To use this function template we use the following format for the function call:
+
+```c++
+function_name<type> (parameters);
+```
+
+For example, to call GetMax to compare two integer values of type int we can write:
+
+```c++
+int x,y;
+GetMax <int> (x,y);
+```
+
+When the compiler encounters this call to a template function, it uses the template to automatically generate a function replacing each appearance of myType by the type passed as the actual template parameter (int in this case) and then calls it. This process is automatically performed by the compiler and is invisible to the programmer.
+
+Here is the entire example:
+
+```c++
+// function template
+#include <iostream>
+using namespace std;
+
+template <class T>
+T GetMax (T a, T b) {
+  T result;
+  result = (a>b)? a : b;
+  return (result);
+}
+
+int main () {
+  int i=5, j=6, k;
+  long l=10, m=5, n;
+  k=GetMax<int>(i,j);
+  n=GetMax<long>(l,m);
+  cout << k << endl;
+  cout << n << endl;
+  return 0;
+}
+
+// output:
+// 6
+// 10
+
+```
+**Note:** In this specific case where the generic type `T` is used as a parameter for `GetMax` the compiler can find out automatically which data type has to instantiate without having to explicitly specify it within angle brackets (like we have done before specifying `<int>` and `<long>`). So we could have written instead:
+
+```c++
+int i,j;
+GetMax (i,j);
+```
+
+
+Since both i and j are of type int, and the compiler can automatically find out that the template parameter can only be int. This implicit method produces exactly the same result:
+
+```
+// function template II
+#include <iostream>
+using namespace std;
+
+template <class T>
+T GetMax (T a, T b) {
+  return (a>b?a:b);
+}
+
+int main () {
+  int i=5, j=6, k;
+  long l=10, m=5, n;
+  k=GetMax(i,j);
+  n=GetMax(l,m);
+  cout << k << endl;
+  cout << n << endl;
+  return 0;
+}
+
+// output:
+// 6
+// 10
+```
+
+However, we cannot do this,
+
+```c++
+int i;
+long l;
+k = GetMax (i,l);
+```
+
+we cannot call our function template with two objects of different types as arguments.
