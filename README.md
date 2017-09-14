@@ -152,6 +152,51 @@ cout << *r; // the value of x
 cout << &(*r); // address of the x
 ```
 
+### array declaration and initialization
+
+To create dynamically 3D array of integers, its better you understand 1D and 2D array first.
+
+1D array: You can do this very easily by
+
+```c++
+const int MAX_SIZE=128;
+int *arr1D = new int[MAX_SIZE];
+```
+
+Here, we are creating a int-pointer which will point to a chunk of memory where integers can be stored.
+
+2D array: You may use solution of above 1D array to create 2D array. First crate a pointer which should point to a memory block where only other integeral pointers are hold which ultimately points to actual data. since our first pointer point to a array of pointer so this will be called as pointer-to-pointer (double pointer).
+
+```c++
+const int HEIGHT=20;
+const int WIDTH=20;
+
+int **arr2D = new int*[WIDTH];  //create an array of int pointers (int*), that will point to 
+                                //data as described in 1D array.
+for(int i = 0;i < WIDTH; i++){
+      arr2D[i] = new int[HEIGHT]; 
+}
+```
+
+3D Array: This is what you want to do. Here you may try both the scheme used in above two. Apply the same logic as 2D array. Diagram in question explains all. First array will be pointer-to-pointer-to-pointer (int*** - since it points to double pointers). Solution is as below:
+
+```c++
+const int X=20;
+const int Y=20;
+const int z=20;
+
+int ***arr3D = new int**[X];
+for(int i =0; i<X; i++){
+   arr3D[i] = new int*[Y];
+   for(int j =0; j<Y; j++){
+       arr3D[i][j] = new int[Z];
+       for(int k = 0; k<Z;k++){
+          arr3D[i][j][k] = 0;
+       }
+   }
+}
+```
+
 ### Memeory leaking
 
 Objects allocated with `new` operator must eventually be freed with `delete` operator, or there will be leaks. Even the `new` takes place in function's actual arguments. That is,
