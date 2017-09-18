@@ -801,3 +801,17 @@ string &rname;  // Compile error
 const string &crname;  // Compile error
 int age;  // Contains junk
 ```
+
+## Code Snippets
+
+**Count number of ones in binary representation of an integer**
+
+```c++
+void countOnes(int n) {
+    int count=0;
+    while (n!=0) {
+        n = n & (n-1);
+        count++;
+    }
+}
+```
