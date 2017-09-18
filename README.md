@@ -815,3 +815,37 @@ void countOnes(int n) {
     }
 }
 ```
+
+**Choose k number from n numbers( kCn)**
+
+```c++
+class Solution {
+public:
+    vector<vector<int>> combine(int n, int k) {
+        vector<vector<int>> res;
+        vector<int> nums;
+        vector<int> cur;
+        
+        for (int i = 1; i <= n; i++) {
+            nums.push_back(i);
+        }
+        
+        bt(nums, cur, k, 0, res);
+        
+        return res;
+    }
+    
+    void bt(const vector<int>& nums, vector<int>& cur, int k, int index, vector<vector<int>>& res) {
+        if (cur.size() == k) {
+            res.push_back(cur);
+            return;
+        }
+        
+        for (int i = index; i < nums.size(); i++) {
+            cur.push_back(nums[i]);
+            bt(nums, cur, k, i+1, res);
+            cur.pop_back();
+        }
+    }
+};
+```
