@@ -152,6 +152,23 @@ cout << *r; // the value of x
 cout << &(*r); // address of the x
 ```
 
+### `--` and `++` operator
+
+```c++
+// Leetcode 168
+public String convertToTitle(int n) {
+   return n == 0 ? "" : convertToTitle(n / 26) + (char) (--n % 26 + 'A');
+}
+```
+
+Question itself isn't important. Notice that `--n` in the code, **in some compilers** `--n` gets run before recursion function `convertToTitle(n/26)`, that is, if `n` is initially `26`, the first recursive call `convertToTitle(n/26)` is going to be `convertToTitle(25/26)`, because `--n` gets run first.
+
+safe version will be 
+
+```c++
+return n == 0 ? "" : convertToTitle((n - 1) / 26) + (char) ((n - 1) % 26 + 'A');
+```
+
 ### array declaration and initialization
 
 To create dynamically 3D array of integers, its better you understand 1D and 2D array first.
@@ -865,3 +882,4 @@ void moveZeroes(vector<int>& nums) {
      }
 }
 ```
+
