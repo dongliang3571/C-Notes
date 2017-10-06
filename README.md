@@ -916,3 +916,66 @@ void anti_rotate(vector<vector<int> > &matrix) {
     }
 }
 ```
+
+### Subset (with and without duplicates)
+
+```c++
+// Find all subsets of [1, 2, 3]
+// ->
+/* [[3],
+    [1],
+    [2],
+    [1,2,3],
+    [1,3],
+    [2,3],
+    [1,2],
+    []]
+*/
+class Solution {
+public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+        vector<vector<int>> res;
+        vector<int> cur;
+        dfs(nums, cur, 0, res);
+        
+        return res;
+    }
+    
+    void dfs(vector<int>& nums, vector<int> cur, int start, vector<vector<int>>& res) {
+        res.push_back(cur);
+        
+        for (int i = start; i < nums.size(); i++) {
+            cur.push_back(nums[i]);
+            dfs(nums, cur, i+1, res);
+            cur.pop_back();
+        }
+    }
+};
+
+// If input contains duplicates
+
+class Solution {
+public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+        vector<vector<int>> res;
+        vector<int> cur;
+        
+        sort(nums.begin(), nums.end()); // Must be sorted, otherwise the line to get rid of duplicated won't work
+        bt(nums, cur, 0, res);
+        
+        return res;
+    }
+    
+    void bt(vector<int>& nums, vector<int> cur, int start, vector<vector<int>>& res) {
+        res.push_back(cur);
+        
+        for (int i = start; i < nums.size(); i++) {
+            if (i > start && nums[i] == nums[i-1]) continue; // This line won't get rid of all duplicates if array is not sorted
+            cur.push_back(nums[i]);
+            bt(nums, cur, i+1, res);
+            cur.pop_back();
+        }
+    }
+};
+
+```
