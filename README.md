@@ -952,7 +952,7 @@ public:
     }
 };
 
-// If input contains duplicates
+// If input contains duplicates, for example [1, 2, 3, 1, 1] and output is required no duplicates
 
 class Solution {
 public:
