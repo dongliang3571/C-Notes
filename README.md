@@ -570,8 +570,6 @@ for (const int& i : v) {
 
 Using arrays are **C-style** coding, using vectors are **C++-style** coding.
 
-Quoting cplusplus.com ,
-
 Vectors are sequence containers representing arrays that can change in size.
 
 Just like arrays, vectors use contiguous storage locations for their elements, which means that their elements can also be accessed using offsets on regular pointers to its elements, and just as efficiently as in arrays. But unlike arrays, their size can change dynamically, with their storage being handled automatically by the container.
@@ -579,6 +577,26 @@ Just like arrays, vectors use contiguous storage locations for their elements, w
 When you want to work with a fixed number of std::vector elements, you can use vector <int> V[].
 
 When you want to work with a dynamic array of std::vector, you can use  vector< vector<int> > V.
+
+### Constructor
+
+```c++
+Thing myThing("asdf");
+// VS.
+Thing myThing = Thing("asdf");
+````
+
+Both lines are in fact correct but do subtly different things.
+
+The first line creates a new object on the stack by calling a constructor of the format Thing(const char*).
+
+The second one is a bit more complex. It essentially does the following
+
+Create an object of type Thing using the constructor Thing(const char*)
+
+Create an object of type Thing using the constructor Thing(const Thing&)
+
+Call ~Thing() on the object created in step #1
 
 ### Templates
 
