@@ -837,6 +837,22 @@ const string &crname;  // Compile error
 int age;  // Contains junk
 ```
 
+### Inheritance, abstract class, virtual function, default constructor, default destructor
+
+```c++
+// This class will provide a default constructor as Shape() {} and default destructor ~Shape() {}
+class Shape {
+};
+```
+
+A case where default constructor is not synthesised on its own
+```c++
+class Shape {
+   public:
+      Shape
+};
+```
+
 ## Code Snippets
 
 **Count number of ones in binary representation of an integer**
