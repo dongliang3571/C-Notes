@@ -855,6 +855,35 @@ class Shape {
 };
 ```
 
+## Singleton and thread saft singleton
+
+**The Double-Checked Locking Pattern**
+ 
+The crux of DCLP is the observation that most calls to instance will see that
+pInstance is non-null, hence not even try to initialize it. Therefore, DCLP tests
+pInstance for nullness before trying to acquire a lock. Only if the test succeeds
+(i.e., if pInstance has not yet been initialized) is the lock acquired, and after
+that the test is performed again to make sure pInstance is still null (hence the
+name double-checked locking). The second test is necessary, because, as we just
+saw, it is possible that another thread happened to initialize pInstance between
+the time pInstance was first tested and the time the lock was acquired.
+Here’s the classic DCLP implementation[13, 14]:
+
+```c++
+static Foo &getInst()
+{
+  static Foo *inst = NULL;
+  if(inst == NULL)      // Check inst before goes to mutex, it will prevent unneccessary locking
+  {
+    pthread_mutex_lock(&mutex);
+    if(inst == NULL)
+      inst = new Foo(...);
+    pthread_mutex_unlock(&mutex);
+  }
+  return *inst;    
+}
+```
+
 ## Code Snippets
 
 **Count number of ones in binary representation of an integer**
