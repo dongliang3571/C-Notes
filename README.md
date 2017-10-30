@@ -336,6 +336,8 @@ int main ()
 
 ### `multiset`, `#include <set>`
 
+https://www.quora.com/What-is-the-difference-between-set-and-multiset-in-STL
+
 ```c++
 template < class T,                        // multiset::key_type/value_type
            class Compare = less<T>,        // multiset::key_compare/value_compare
